@@ -18,7 +18,7 @@ void House::flipFirstCard()
 {
 	if (!(m_Cards.empty()))
 	{
-		m_Cards[0]->flip();
+		m_Cards[0].flip();
 	}
 	else
 	{

@@ -19,15 +19,15 @@ bool Player::isHitting() const
 
 void Player::win() const
 {
-	std::cout << m_Name << " wines.\n";
+  std::cout << m_Name << " wines." << std::endl;
 }
 
 void Player::lose() const
 {
-	std::cout << m_Name << " loses.\n";
+  std::cout << m_Name << " loses.\n" << std::endl;
 }
 
 void Player::push() const
 {
-	std::cout << m_Name << " pushes.\n";
+  std::cout << m_Name << " pushes.\n" << std::endl;
 }

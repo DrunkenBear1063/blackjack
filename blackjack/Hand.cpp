@@ -12,19 +12,13 @@ Hand::~Hand()
 	clear();
 }
 
-void Hand::add(Card* pCard)
+void Hand::add(Card pCard)
 {
 	m_Cards.push_back(pCard);
 }
 
 void Hand::clear()
 {
-	std::vector<Card*>::iterator iter = m_Cards.begin();
-	for (iter = m_Cards.begin(); iter != m_Cards.end(); ++iter)
-	{
-		delete *iter;
-		*iter = 0;
-	}
 	m_Cards.clear();
 }
 
@@ -34,20 +28,21 @@ int Hand::getTotal() const
 	{
 		return 0;
 	}
-	if (m_Cards[0]->getValue() == 0)
+	if (m_Cards[0].getValue() == 0)
 	{
 		return 0;
 	}
 	int total = 0;
-	std::vector<Card*>::const_iterator iter;
-	for (iter = m_Cards.begin(); iter != m_Cards.end(); ++iter)
-	{
-		total += (*iter)->getValue();
-	}
+
+  for (auto card : m_Cards)
+  {
+    total += card.getValue();
+  }
+   
 	bool containsAce = false;
-	for (iter = m_Cards.begin(); iter != m_Cards.end(); ++iter)
+	for (auto card : m_Cards)
 	{
-		if ((*iter)->getValue() == Card::ACE)
+		if (card.getValue() == Card::ACE)
 		{
 			containsAce = true;
 		}

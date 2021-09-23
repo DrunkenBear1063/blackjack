@@ -11,7 +11,7 @@ public:
 
 	int getValue() const;
 	void flip();
-
+  ~Card();
 public:
 	rank m_Rank;
 	suit m_Suit;

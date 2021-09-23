@@ -16,29 +16,29 @@ bool GenericPlayer::isBusted() const
 
 void GenericPlayer::bust() const
 {
-	std::cout << m_Name << " busts.\n";
+	std::cout << m_Name << " busts." << std::endl;
 }
 
 std::ostream& operator<<(std::ostream& os, const GenericPlayer& aGenericPlayer)
 {
-	os << aGenericPlayer.m_Name << ":\t";
-	std::vector<Card*>::const_iterator pCard;
-	if (!aGenericPlayer.m_Cards.empty())
-	{
-		for (pCard = aGenericPlayer.m_Cards.begin(); pCard != aGenericPlayer.m_Cards.end(); ++pCard)
-		{
-			os << *(*pCard) << "\t";
-		}
-		if (aGenericPlayer.getTotal() != 0)
-		{
-			std::cout << "(" << aGenericPlayer.getTotal() << ")";
-		}
-	}
-	else
-	{
-		os << "<empty>";
-	}
-	return os;
+  os << aGenericPlayer.m_Name << ":\t";
+
+  if (!aGenericPlayer.m_Cards.empty())
+  {
+    for (auto& card : aGenericPlayer.m_Cards)
+    {
+      os << card << "\t";
+    }
+    if (aGenericPlayer.getTotal() != 0)
+    {
+      std::cout << "(" << aGenericPlayer.getTotal() << ")";
+    }
+  }
+  else
+  {
+    os << "<empty>";
+  }
+  return os;
 }
 
 

@@ -2,8 +2,7 @@
 #include "Deck.h"
 #include <algorithm>
 #include <iostream>
-
-//std::ostream& operator<<(std::ostream& os, const Card& aCard);
+#include <random>
 
 Deck::Deck()
 {
@@ -22,14 +21,16 @@ void Deck::populate()
 	{
 		for (int r = Card::ACE; r <= Card::KING; ++r)
 		{
-			add(new Card(static_cast<Card::rank>(r), static_cast<Card::suit>(s)));
+      add(Card{ static_cast<Card::rank>(r), static_cast<Card::suit>(s) });
 		}
 	}
 }
 
 void Deck::shuffle()
 {
-	random_shuffle(m_Cards.begin(), m_Cards.end());
+  std::random_device rd;
+  std::mt19937 g(rd());
+  std::shuffle(m_Cards.begin(), m_Cards.end(), g);
 }
 
 void Deck::deal(Hand& aHand)
@@ -41,7 +42,7 @@ void Deck::deal(Hand& aHand)
 	}
 	else
 	{
-		std::cout << "Out of cards. Unable to deal.\n";
+    std::cout << "Out of cards. Unable to deal." << std::endl;
 	}
 }
 

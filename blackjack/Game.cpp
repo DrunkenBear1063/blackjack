@@ -8,12 +8,11 @@
 
 Game::Game(const std::vector<std::string>& names)
 {
-	std::vector<std::string>::const_iterator pName;
-	for (pName = names.begin(); pName != names.end(); ++pName)
-	{
-		m_Players.push_back(Player(*pName));
-	}
-	srand(static_cast<unsigned int>(time(0)));
+  for (auto name : names)
+  {
+    m_Players.push_back(Player{ name });
+  }
+   
 	m_Deck.populate();
 	m_Deck.shuffle();
 }
@@ -23,28 +22,27 @@ Game::~Game()
 
 void Game::play()
 {
-	std::vector<Player>::iterator pPlayer;
 	for (int i = 0; i < 2; i++)
 	{
-		for (pPlayer = m_Players.begin(); pPlayer != m_Players.end(); ++pPlayer)
+		for (auto& player : m_Players)
 		{
-			m_Deck.deal(*pPlayer);
+			m_Deck.deal(player);
 		}
 		m_Deck.deal(m_House);
 	}
 
 	m_House.flipFirstCard();
 
-	for (pPlayer = m_Players.begin(); pPlayer != m_Players.end(); ++pPlayer)
+	for (auto& player : m_Players)
 	{
-		std::cout << *pPlayer << std::endl;
+		std::cout << player << std::endl;
 	}
 
 	std::cout << m_House << std::endl;
 
-	for (pPlayer = m_Players.begin(); pPlayer != m_Players.end(); ++pPlayer)
+	for (auto& player : m_Players)
 	{
-		m_Deck.additionalCards(*pPlayer);
+		m_Deck.additionalCards(player);
 	}
 
 	m_House.flipFirstCard();
@@ -53,39 +51,39 @@ void Game::play()
 	m_Deck.additionalCards(m_House);
 	if (m_House.isBusted())
 	{
-		for (pPlayer = m_Players.begin(); pPlayer != m_Players.end(); ++pPlayer)
+		for (auto& player : m_Players)
 		{
-			if (!(pPlayer->isBusted()))
+			if (!(player.isBusted()))
 			{
-				pPlayer->win();
+        player.win();
 			}
 		}
 	}
 	else
 	{
-		for (pPlayer = m_Players.begin(); pPlayer != m_Players.end(); ++pPlayer)
+		for (auto& player : m_Players)
 		{
-			if (!(pPlayer->isBusted()))
+			if (!(player.isBusted()))
 			{
-				if (pPlayer->getTotal() > m_House.getTotal())
+				if (player.getTotal() > m_House.getTotal())
 				{
-					pPlayer->win();
+          player.win();
 				}
-				else if (pPlayer->getTotal() < m_House.getTotal())
+				else if (player.getTotal() < m_House.getTotal())
 				{
-					pPlayer->lose();
+          player.lose();
 				}
 				else
 				{
-					pPlayer->push();
+          player.push();
 				}
 			}
 		}
 	}
 
-	for (pPlayer = m_Players.begin(); pPlayer != m_Players.end(); ++pPlayer)
+	for (auto& player : m_Players)
 	{
-		pPlayer->clear();
+    player.clear();
 	}
 	m_House.clear();
 }
