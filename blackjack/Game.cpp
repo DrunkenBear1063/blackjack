@@ -1,89 +1,98 @@
-#include "stdafx.h"
-#include "Game.h"
 #include <ctime>
 #include <vector>
 #include <string>
 #include <iostream>
-
+#include "Game.h"
 
 Game::Game(const std::vector<std::string>& names)
 {
-  for (auto name : names)
-  {
-    m_Players.push_back(Player{ name });
-  }
+	for (auto name : names)
+	{
+		m_Players.push_back(std::make_unique<Player>(name));
+	}
    
-	m_Deck.populate();
-	m_Deck.shuffle();
+	m_Deck.Populate();
+	m_Deck.Shuffle();
 }
 
-Game::~Game()
-{}
-
-void Game::play()
+void Game::Play()
 {
-	for (int i = 0; i < 2; i++)
+	if (m_Deck.m_Cards.size() <= 20)
 	{
-		for (auto& player : m_Players)
+		m_Deck.Populate();
+		m_Deck.Shuffle();
+	}
+
+	while (m_Deck.m_Cards.size() > 20)
+	{
+		for (int i = 0; i < 2; i++)
 		{
-			m_Deck.deal(player);
-		}
-		m_Deck.deal(m_House);
-	}
-
-	m_House.flipFirstCard();
-
-	for (auto& player : m_Players)
-	{
-		std::cout << player << std::endl;
-	}
-
-	std::cout << m_House << std::endl;
-
-	for (auto& player : m_Players)
-	{
-		m_Deck.additionalCards(player);
-	}
-
-	m_House.flipFirstCard();
-	std::cout << std::endl << m_House;
-
-	m_Deck.additionalCards(m_House);
-	if (m_House.isBusted())
-	{
-		for (auto& player : m_Players)
-		{
-			if (!(player.isBusted()))
+			for (auto& player : m_Players)
 			{
-        player.win();
+				m_Deck.Deal(*player);
 			}
+
+			m_Deck.Deal(m_House);
 		}
-	}
-	else
-	{
+
+		m_House.FlipFirstCard();
+
 		for (auto& player : m_Players)
 		{
-			if (!(player.isBusted()))
+			std::cout << *player << std::endl;
+		}
+
+		std::cout << m_House << std::endl;
+
+		for (auto& player : m_Players)
+		{
+			m_Deck.AdditionalCards(*player);
+		}
+
+		m_House.FlipFirstCard();
+		std::cout << std::endl << m_House;
+
+		m_Deck.AdditionalCards(m_House);
+
+		if (m_House.IsBusted())
+		{
+			for (auto& player : m_Players)
 			{
-				if (player.getTotal() > m_House.getTotal())
+				if (!(player->IsBusted()))
 				{
-          player.win();
-				}
-				else if (player.getTotal() < m_House.getTotal())
-				{
-          player.lose();
-				}
-				else
-				{
-          player.push();
+					player->Win();
 				}
 			}
 		}
-	}
+		else
+		{
+			for (auto& player : m_Players)
+			{
+				if (!(player->IsBusted()))
+				{
+					if (player->GetTotal() > m_House.GetTotal())
+					{
+						player->Win();
+					}
+					else if (player->GetTotal() < m_House.GetTotal())
+					{
+						player->Lose();
+					}
+					else
+					{
+						player->Push();
+					}
+				}
+			}
+		}
 
-	for (auto& player : m_Players)
-	{
-    player.clear();
+		for (auto& player : m_Players)
+		{
+			player->Clear();
+		}
+
+		m_House.Clear();
 	}
-	m_House.clear();
 }
+
+Game::~Game() {}

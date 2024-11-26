@@ -4,16 +4,18 @@
 class Card
 {
 public:
-	enum rank{ ACE = 1, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING };
-	enum suit{ CLUBS, DIAMONDS, HEARTS, SPADES };
-	friend std::ostream& operator<<(std::ostream& os, const Card& aCard);
-	Card(rank r = ACE, suit s = SPADES, bool ifu = true);
+	enum Rank { ACE = 1, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING };
+	enum Suit { CLUBS, DIAMONDS, HEARTS, SPADES };
 
-	int getValue() const;
-	void flip();
-  ~Card();
-public:
-	rank m_Rank;
-	suit m_Suit;
+	Rank m_Rank;
+	Suit m_Suit;
 	bool m_isFaceUp;
+
+	Card(Rank r = ACE, Suit s = SPADES, bool isFaceUp = true);
+	~Card();
+
+	friend std::ostream& operator<<(std::ostream& os, const Card& card);
+
+	int GetValue() const;
+	void Flip();
 };

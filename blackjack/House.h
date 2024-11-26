@@ -1,13 +1,13 @@
 #pragma once
-
-#include "GenericPlayer.h"
 #include <string>
+#include "GenericPlayer.h"
 
 class House : public GenericPlayer
 {
 public:
 	House(const std::string& name = "House");
 	virtual ~House();
-	virtual bool isHitting() const;
-	void flipFirstCard();
+
+	bool IsHitting() const override;
+	void FlipFirstCard();
 };

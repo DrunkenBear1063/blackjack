@@ -1,15 +1,10 @@
-#include "stdafx.h"
-#include "Player.h"
 #include <string>
 #include <iostream>
+#include "Player.h"
 
-Player::Player(const std::string& name) : GenericPlayer(name)
-{}
+Player::Player(const std::string& name) : GenericPlayer(name) {}
 
-Player::~Player()
-{}
-
-bool Player::isHitting() const
+bool Player::IsHitting() const
 {
 	std::cout << m_Name << " . Do you want a hit? (Y/N): ";
 	char responce;
@@ -17,17 +12,19 @@ bool Player::isHitting() const
 	return (responce == 'y' || responce == 'Y');
 }
 
-void Player::win() const
+void Player::Win() const
 {
-  std::cout << m_Name << " wines." << std::endl;
+	std::cout << m_Name << " wines." << std::endl;
 }
 
-void Player::lose() const
+void Player::Lose() const
 {
-  std::cout << m_Name << " loses.\n" << std::endl;
+	std::cout << m_Name << " loses.\n" << std::endl;
 }
 
-void Player::push() const
+void Player::Push() const
 {
-  std::cout << m_Name << " pushes.\n" << std::endl;
+	std::cout << m_Name << " pushes.\n" << std::endl;
 }
+
+Player::~Player() {}

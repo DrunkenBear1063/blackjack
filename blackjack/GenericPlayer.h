@@ -1,18 +1,19 @@
 #pragma once
-
-#include "Hand.h"
 #include <string>
 #include <iostream>
+#include "Hand.h"
 
 class GenericPlayer : public Hand
 {
-	friend std::ostream& operator<<(std::ostream& os, const GenericPlayer& aGenericPlayer);
-public:
-	GenericPlayer(const std::string& name = "");
-	virtual ~GenericPlayer();
-	virtual bool isHitting() const = 0;
-	bool isBusted() const;
-	void bust() const;
 public:
 	std::string m_Name;
+
+	GenericPlayer(const std::string& name = "");
+	virtual ~GenericPlayer();
+
+	friend std::ostream& operator<<(std::ostream& os, const GenericPlayer& genericPlayer);
+
+	virtual bool IsHitting() const = 0;
+	bool IsBusted() const;
+	void Bust() const;
 };

@@ -7,8 +7,9 @@ class Deck : public Hand
 public:
 	Deck();
 	virtual ~Deck();
-	void populate();
-	void shuffle();
-	void deal(Hand& aHand);
-	void additionalCards(GenericPlayer& aGenericPlayer);
+
+	void Populate();
+	void Shuffle();
+	void Deal(Hand& hand);
+	void AdditionalCards(GenericPlayer& genericPlayer);
 };

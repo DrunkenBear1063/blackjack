@@ -1,16 +1,16 @@
 #pragma once
-
-#include "Card.h"
 #include <vector>
+#include "Card.h"
 
 class Hand
 {
 public:
+	std::vector<Card> m_Cards;
+
 	Hand();
 	virtual ~Hand();
-	void add(Card pCard);
-	void clear();
-	int getTotal() const;
-public:
-	std::vector<Card> m_Cards;
+
+	void Add(Card card);
+	void Clear();
+	int GetTotal() const;
 };

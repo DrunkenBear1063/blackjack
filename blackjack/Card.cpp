@@ -1,14 +1,14 @@
-#include "stdafx.h"
-#include "Card.h"
 #include <iostream>
 #include <string>
+#include <vector>
+#include "Card.h"
 
-Card::Card(rank r, suit s, bool ifu) : m_Rank(r), m_Suit(s), m_isFaceUp(ifu)
-{}
+Card::Card(Rank r, Suit s, bool isFaceUp) : m_Rank(r), m_Suit(s), m_isFaceUp(isFaceUp) {}
 
-int Card::getValue() const
+int Card::GetValue() const
 {
 	int value = 0;
+
 	if (m_isFaceUp)
 	{
 		value = m_Rank;
@@ -18,28 +18,30 @@ int Card::getValue() const
 			value = 10;
 		}
 	}
+
 	return value;
 }
 
-void Card::flip()
+void Card::Flip()
 {
 	m_isFaceUp = !(m_isFaceUp);
 }
 
-Card::~Card()
-{}
-
-std::ostream& operator<<(std::ostream& os, const Card& aCard)
+std::ostream& operator<<(std::ostream& os, const Card& card)
 {
-	const std::string RANKS[] = { "0", "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
-	const std::string SUITS[] = { "c", "d", "h", "s" };
-	if (aCard.m_isFaceUp)
+	const std::vector<std::string> Ranks = { "0", "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K" };
+	const std::vector<std::string> Suits = { "c", "d", "h", "s" };
+
+	if (card.m_isFaceUp)
 	{
-		os << RANKS[aCard.m_Rank] << SUITS[aCard.m_Suit];
+		os << Ranks[card.m_Rank] << Suits[card.m_Suit];
 	}
 	else
 	{
 		os << "XX";
 	}
+
 	return os;
 }
+
+Card::~Card() {}
